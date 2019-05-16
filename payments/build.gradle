@@ -13,9 +13,12 @@ dependencies {
     implementation(enforcedPlatform('io.quarkus:quarkus-bom:0.15.0'))
     implementation('io.quarkus:quarkus-resteasy')
     implementation('io.quarkus:quarkus-resteasy-jsonb')
+    implementation('io.quarkus:quarkus-smallrye-rest-client')
     //HAL
     implementation('io.openapitools.jackson.dataformat:jackson-dataformat-hal:1.0.4')
     implementation('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.6')
+    //Couchbase
+    implementation('com.couchbase.client:java-client:2.0.3')
     
     testCompile group: 'io.quarkus', name: 'quarkus-junit5', version: '0.15.0'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.3.0'

@@ -3,20 +3,20 @@
 #
 # Before building the docker image run:
 #
-# ./gradlew logic:buildNative 
+# ./gradlew payments:buildNative
 #
 # Then, build the image with:
 #
-# docker build -t customerservice .
+# docker build -t paymentsservice .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 customerservice
+# docker run -d -p 8080:8080 paymentsservice
 #
 ###
 FROM registry.fedoraproject.org/fedora-minimal
 WORKDIR /work/
-COPY logic/build/logic-runner /work/application
+COPY payments/build/payments-runner /work/application
 RUN chmod 775 /work
 EXPOSE 8080
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]

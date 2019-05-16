@@ -3,7 +3,9 @@ package se.fk.fifty.payment.model;
 import io.openapitools.jackson.dataformat.hal.HALLink;
 import io.openapitools.jackson.dataformat.hal.annotation.Link;
 import io.openapitools.jackson.dataformat.hal.annotation.Resource;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
+@RegisterForReflection
 @Resource
 public class EntryPointRepresentation extends BaseRepresentation
 {

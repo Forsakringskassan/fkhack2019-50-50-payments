@@ -1,0 +1,30 @@
+//-*- coding: utf-8 -*-
+plugins {
+    id 'java'
+    id 'io.quarkus' version '0.15.0'
+    //id 'groovy'
+}
+
+test {
+  useJUnitPlatform()
+}
+
+dependencies {
+    implementation(enforcedPlatform('io.quarkus:quarkus-bom:0.15.0'))
+    implementation('io.quarkus:quarkus-resteasy')
+    implementation('io.quarkus:quarkus-resteasy-jsonb')
+    //HAL
+    implementation('io.openapitools.jackson.dataformat:jackson-dataformat-hal:1.0.4')
+    implementation('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.6')
+    
+    testCompile group: 'io.quarkus', name: 'quarkus-junit5', version: '0.15.0'
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.3.0'
+
+    testRuntime 'org.glassfish:javax.json:1.1'
+
+    // for spock
+    testCompile "org.codehaus.groovy:groovy-all:2.4.4+"
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testCompile "cglib:cglib-nodep:3.2.4"
+    testCompile "org.objenesis:objenesis:2.6"
+}

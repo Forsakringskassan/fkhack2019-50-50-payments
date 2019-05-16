@@ -1,0 +1,40 @@
+//-*- coding: utf-8 -*-
+plugins {
+    id 'org.sonarqube' version '2.5'
+}
+
+
+defaultTasks 'build'
+
+sonarqube {
+    properties {
+        properties["sonar.host.url"] = 'http://localhost:9000'
+        properties["sonar.verbose"] = "true"
+        properties['sonar.java.source'] = 8
+    }
+}
+
+
+allprojects{
+  tasks.withType(JavaCompile) { 
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+    options.compilerArgs << "-Xlint:all" << "-Werror"
+  }
+  repositories {
+    mavenCentral()
+    mavenLocal()
+  }
+}
+
+subprojects{
+  apply from: "$rootProject.projectDir/versions.gradle"
+}
+
+
+task dist(type: Copy, dependsOn: getTasksByName("build", false)) {
+    subprojects.each { subproject ->
+            from "$subproject.buildDir/libs"
+            into "$rootProject.projectDir/dist"
+    }
+}

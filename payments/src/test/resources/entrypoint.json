@@ -1,0 +1,11 @@
+{
+  "_links": {
+    "self": { "href": "/" },
+    "curies": [{ "name": "rel", "href": "http://example.com/docs/rels/{rel}", "templated": true }],
+
+    "rel:payments": {
+      "href": "/payments/{custId}",
+      "templated": true
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "UUID",
+  "description": "Payment description",
+  "payment_to" : "UUID customer to receive payment",
+  "payment_from" : "UUID customer to send payment",
+  "amount": {
+    "currency": "SEK",
+    "value": 400
+  },
+  "payment_date": "2019-08-16",
+  "creation_date": "2019-05-16",
+  "status": ""
+}

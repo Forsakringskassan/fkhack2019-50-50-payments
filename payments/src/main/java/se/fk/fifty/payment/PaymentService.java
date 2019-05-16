@@ -34,22 +34,14 @@ public class PaymentService
     @Path("/")
     public Response getEntryPoint()
     {
-        EntryPointRepresentation e = new EntryPointRepresentation();
+//        EntryPointRepresentation e = new EntryPointRepresentation();
+//
+//        String reply = EntityMapper.toHalJson( e );
+//        System.out.println( "Reply: " + reply );
 
-        String reply = EntityMapper.toHalJson( e );
-        System.out.println( "Reply: " + reply );
+        String reply = "{\"_links\":{\"curies\":[{\"href\":\"/docs/{rel}\",\"templated\":true,\"name\":\"rel\"}],\"rel:payments\":{\"href\":\"/payments/{custId}\",\"templated\":true},\"self\":{\"href\":\"/\"}}}";
 
         return Response.ok(reply).build();
-    }
-
-    @GET
-    @Produces(CONTENT_HAL_JSON)
-    @Path("/payments")
-    public Response getPayments()
-    {
-        //TODO: create response with the templated link for payment
-
-        return Response.ok().build();
     }
 
     @GET
@@ -58,6 +50,9 @@ public class PaymentService
     public Response getCustomerPayments(@PathParam("custId") String custId)
     {
         //TODO: call store to get customers payments.
-        return Response.ok().build();
+
+        String reply = "{\"_links\":{\"curies\":[{\"href\":\"/docs/{rel}\",\"templated\":true,\"name\":\"rel\"}],\"rel:payment\":{\"href\":\"/payments/"+custId+"/{id}\",\"templated\":true},\"self\":{\"href\":\"/payments/"+custId+"\"}}}";
+
+        return Response.ok(reply).build();
     }
 }

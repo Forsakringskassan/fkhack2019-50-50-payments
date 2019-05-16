@@ -37,6 +37,7 @@ public class PaymentService
         EntryPointRepresentation e = new EntryPointRepresentation();
 
         String reply = EntityMapper.toHalJson( e );
+        System.out.println( "Reply: " + reply );
 
         return Response.ok(reply).build();
     }

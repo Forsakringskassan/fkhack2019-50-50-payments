@@ -27,29 +27,14 @@ public class Payment
         return data.getString( "payment_to" );
     }
 
-    public String getPaymentFrom()
+    public String getDescription()
     {
-        return data.getString( "payment_from" );
+        return data.getString( "description" );
     }
 
-    public String getAmount()
+    public String getStatus()
     {
-        return data.getString( "amount" );
-    }
-
-    public String getCurrency()
-    {
-        return data.getString( "currency" );
-    }
-
-    public String getCreatedDate()
-    {
-        return data.getString( "created_date" );
-    }
-
-    public String getPaymentDate()
-    {
-        return data.getString( "payment_date");
+        return data.getString( "status" );
     }
 
     @Override

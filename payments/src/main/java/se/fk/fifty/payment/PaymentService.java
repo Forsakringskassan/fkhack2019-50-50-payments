@@ -79,18 +79,23 @@ public class PaymentService
     public Response getCustomerPayments(@PathParam("custId") String custId, String data )
     {
         JsonObject object = Json.createReader(new StringReader( data )).readObject();
-        Payment p = store.createPayment( custId, UUID.randomUUID().toString(), new Payment( object ) );
+        Payment p = store.createPayment( custId, new Payment( object ) );
 
         PaymentRepresentation representation = createRepresentation( p );
 
-        String reply = EntityMapper.toHalJson( representation );
+        String reply = toMergeDocuemnt( representation, p );
 
         return Response.status(Response.Status.CREATED).entity(reply).header("Access-Control-Allow-Origin", "*").build();
     }
 
     private PaymentRepresentation createRepresentation( Payment p )
     {
-        return new PaymentRepresentation( p.getId(), p.getPaymentTo(), p.getPaymentFrom(), p.getAmount(), p.getCurrency(),p.getPaymentDate(), p.getCreatedDate() );
+        return new PaymentRepresentation( p.getId(), p.getPaymentTo(), p.getStatus(), p.getDescription() );
+    }
+
+    private String toMergeDocuemnt( PaymentRepresentation rep, Payment p )
+    {
+        return JsonMerger.merge( Json.createReader( new StringReader( EntityMapper.toHalJson( rep ) ) ).readObject(), p.getData() ).toString();
     }
 
     @GET
@@ -102,8 +107,17 @@ public class PaymentService
 
         PaymentRepresentation representation = createRepresentation( payment );
 
-        String reply = EntityMapper.toHalJson( representation );
+        String reply = toMergeDocuemnt( representation, payment );
 
         return Response.ok(reply).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Produces(CONTENT_HAL_JSON)
+    @Path("/test")
+    public Response test()
+    {
+        store.test();
+        return Response.ok("test " + UUID.randomUUID().toString() ).build();
     }
 }

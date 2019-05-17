@@ -5,6 +5,8 @@ import io.openapitools.jackson.dataformat.hal.annotation.Link;
 import io.openapitools.jackson.dataformat.hal.annotation.Resource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
+import java.net.URI;
+
 @RegisterForReflection
 @Resource
 public class PaymentRepresentation extends BaseRepresentation
@@ -12,24 +14,19 @@ public class PaymentRepresentation extends BaseRepresentation
     private static final String PATH = Relationship.PAYMENTS_CONTEXT;
     private final String payment_to;
     private final String id;
-    private final String payment_from;
-    private final String amount;
-    private final String currency;
-    private final String payment_date;
-    private final String created_date;
+    private final String status;
+    private final String description;
 
     @Link(Relationship.CANCEL_PAYMENT)
     private HALLink cancelPayment;
 
-    public PaymentRepresentation( String paymentId, String customerId, String payment_from, String amount, String currency, String payment_date, String created_date )
+    public PaymentRepresentation( String paymentId, String customerId, String status, String description )
     {
         this.payment_to = customerId;
         this.id = paymentId;
-        this.payment_from = payment_from;
-        this.amount = amount;
-        this.currency = currency;
-        this.payment_date = payment_date;
-        this.created_date = created_date;
+        this.status = status;
+        this.description = description;
+        this.cancelPayment = status.equals("COMPLETE") ? null : new HALLink.Builder(URI.create( getSelfLink() ) ).build();
     }
 
     public String getId()
@@ -42,29 +39,14 @@ public class PaymentRepresentation extends BaseRepresentation
         return payment_to;
     }
 
-    public String getPayment_from()
+    public String getStatus()
     {
-        return payment_from;
+        return status;
     }
 
-    public String getAmount()
+    public String getDescription()
     {
-        return amount;
-    }
-
-    public String getCurrency()
-    {
-        return currency;
-    }
-
-    public String getPayment_date()
-    {
-        return payment_date;
-    }
-
-    public String getCreated_date()
-    {
-        return created_date;
+        return description;
     }
 
     public HALLink getCancelPayment()

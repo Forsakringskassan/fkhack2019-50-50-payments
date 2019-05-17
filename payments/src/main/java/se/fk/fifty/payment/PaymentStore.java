@@ -3,6 +3,7 @@ package se.fk.fifty.payment;
 import se.fk.fifty.payment.model.Payment;
 import se.fk.fifty.payment.model.PaymentNotFoundException;
 
+import javax.json.JsonObject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -42,5 +43,7 @@ public interface PaymentStore
      * @param payment to create.
      * @return
      */
-    Payment createPayment(String customerId, String paymentId, Payment payment);
+    Payment createPayment(String customerId, Payment payment);
+
+    JsonObject test();
 }
